@@ -424,10 +424,6 @@ html body #main-outlet,
 // ---------------------------------------------------------------------------
 // Footer: one line — copyright + legal links
 // ---------------------------------------------------------------------------
-.velixo-topic-title-sentinel {
-  height: 0;
-}
-
 .velixo-footer {
   display: flex;
   flex-wrap: wrap;
@@ -467,11 +463,15 @@ html body #main-outlet,
 // ---------------------------------------------------------------------------
 // Topic page
 // ---------------------------------------------------------------------------
-html body #main-outlet {
+// card padding and the gap above the card (see #main-outlet in common.scss)
+:root {
   --velixo-card-pad: 3em;
+  --velixo-card-gap: 30px;
+  --velixo-sticky-top: var(--header-offset);
 
   @media screen and (width <= 700px) {
     --velixo-card-pad: 1.5em;
+    --velixo-card-gap: 0px;
   }
 }
 
@@ -480,14 +480,14 @@ html body #main-outlet {
 // init-velixo-topic-title.js so the sticky avatars and timeline sit below it.
 #topic-title {
   position: sticky;
-  top: var(--header-offset);
+  top: var(--velixo-sticky-top);
 
   // above the sticky post avatars (2) and the timeline (100), which slide
   // under it at the end of a topic; below the header and menus
   z-index: 101;
   margin: -1.5em calc(-1 * var(--velixo-card-pad)) 1.5em;
   padding: 1.5em var(--velixo-card-pad) 1em;
-  border-bottom: 1px solid transparent;
+  border-bottom: 1px solid var(--primary-low);
   background: var(--secondary);
 
   h1 {
@@ -539,48 +539,82 @@ html body #main-outlet {
   }
 }
 
-// Once pinned, round the bar's top corners so the card keeps its shape.
-// With the navy band behind the card this paints navy outside a quarter
-// circle (border-radius alone would show the posts scrolling underneath).
-// Only while pinned: at rest the bar sits inside the card, below its top edge.
-html.velixo-topic-title-stuck #topic-title {
-  @if $hero_style == "navy" {
-    background:
-      radial-gradient(
-          circle at 100% 100%,
-          transparent 1em,
-          var(--velixo-navy) 1em
-        )
-        left
-        top /
-        1em
-        1em
-        no-repeat,
-      radial-gradient(circle at 0 100%, transparent 1em, var(--velixo-navy) 1em)
-        right
-        top /
-        1em
-        1em
-        no-repeat,
-      var(--secondary);
-  } @else {
-    border-radius: 1em 1em 0 0;
+// Navy style: pin the bar exactly where the card's top edge sits at rest
+// (same gap below the header, same padding), so the top of a topic looks the
+// same scrolled or not. The gap and rounded corners above it come from
+// .velixo-card-cap below.
+@if $hero_style == "navy" {
+  :root {
+    --velixo-sticky-top: calc(var(--header-offset) + var(--velixo-card-gap));
+  }
+
+  #topic-title {
+    margin-top: calc(-1 * var(--velixo-card-pad));
+    padding-top: var(--velixo-card-pad);
+    border-radius: var(--velixo-radius) var(--velixo-radius) 0 0;
   }
 }
 
-// once pinned, a hairline separates the title from the posts scrolling under
-html.velixo-topic-title-stuck #topic-title {
-  border-bottom-color: var(--primary-low);
+// Card cap: once the card scrolls up under the header, a navy strip the
+// card's width (positioned by init-velixo-card.js) covers the gap under the
+// header and cuts rounded corners into the card, matching its resting shape.
+.velixo-card-cap {
+  display: none;
+}
+
+@if $hero_style == "navy" {
+  // wider than the card by --velixo-cap-bleed on each side to also cover the
+  // card's drop shadow in the gap
+  html.velixo-card-capped .velixo-card-cap {
+    --velixo-cap-bleed: 40px;
+    --r: var(--velixo-radius);
+    display: block;
+    position: fixed;
+    top: var(--header-offset);
+    left: calc(var(--velixo-card-left) - var(--velixo-cap-bleed));
+    z-index: 102; // above the pinned title (101), below the header
+    width: calc(var(--velixo-card-width) + 2 * var(--velixo-cap-bleed));
+    height: calc(var(--velixo-card-gap) + var(--r));
+    pointer-events: none;
+    background:
+      linear-gradient(var(--velixo-navy), var(--velixo-navy))
+        top /
+        100%
+        var(--velixo-card-gap)
+        no-repeat,
+      radial-gradient(
+          circle at 100% 100%,
+          transparent var(--r),
+          var(--velixo-navy) var(--r)
+        )
+        left
+        var(--velixo-cap-bleed)
+        bottom /
+        var(--r)
+        var(--r)
+        no-repeat,
+      radial-gradient(
+          circle at 0 100%,
+          transparent var(--r),
+          var(--velixo-navy) var(--r)
+        )
+        right
+        var(--velixo-cap-bleed)
+        bottom /
+        var(--r)
+        var(--r)
+        no-repeat;
+  }
 }
 
 // (selectors match core's specificity on the topic page so these win)
 html body .container.posts .topic-post .topic-avatar {
-  top: calc(var(--header-offset) + var(--velixo-topic-title-height, 0px));
+  top: calc(var(--velixo-sticky-top) + var(--velixo-topic-title-height, 0px));
 }
 
 html body .container.posts .topic-navigation {
   top: calc(
-    var(--header-offset) + var(--velixo-topic-title-height, 0px) + 1.5em
+    var(--velixo-sticky-top) + var(--velixo-topic-title-height, 0px) + 1.5em
   );
 }
 
