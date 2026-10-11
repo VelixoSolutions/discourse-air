@@ -33,6 +33,28 @@ html.velixo-hide-sidebar {
   .d-header .title {
     padding-left: 0;
   }
+
+  // line the header up with the content card (#main-outlet: 1150px + 3em
+  // padding each side, narrower below 1120px — see common.scss)
+  .d-header .wrap {
+    max-width: calc(1150px + 6em);
+    margin-inline: auto;
+    padding-inline: 0;
+
+    @media screen and (width <= 1120px) {
+      width: calc(80% + 6em);
+    }
+
+    @media screen and (width <= 1075px) {
+      width: calc(85% + 6em);
+    }
+
+    @include viewport.until(lg) {
+      box-sizing: border-box;
+      width: 100%;
+      padding-inline: 1.5em;
+    }
+  }
 }
 
 // The banner sits on the brand band in both colour schemes
@@ -189,6 +211,17 @@ html body #main-outlet,
   }
 }
 
+// Even vertical rhythm: header → headline → search → links → card
+.welcome-banner.--location-below-site-header {
+  .custom-search-banner-wrap {
+    padding: 2.5em 0 0.75em;
+  }
+
+  .welcome-banner__search-menu {
+    margin-top: 1.75em;
+  }
+}
+
 html.velixo-hide-banner-title {
   .welcome-banner.--location-below-site-header .welcome-banner__title {
     display: none;
@@ -274,7 +307,7 @@ html.velixo-hero--navy {
   .background-container {
     background: var(--velixo-navy);
     clip-path: none;
-    height: 430px;
+    height: 400px;
   }
 
   .d-header {
@@ -305,8 +338,23 @@ html.velixo-hero--navy {
       }
     }
 
+    // one clear call to action, like velixo.com: Sign Up solid, Log In outline
     .btn-primary {
       background: var(--velixo-cta);
+    }
+
+    .login-button.btn-primary {
+      background: transparent;
+      border: 1px solid rgb(255, 255, 255, 0.45);
+      color: #fff;
+
+      .d-icon {
+        color: #fff;
+      }
+
+      &:hover {
+        background: rgb(255, 255, 255, 0.12);
+      }
     }
   }
 
@@ -432,5 +480,35 @@ html.velixo-hero--light {
     padding: 1em 1.5em 2em;
     border-top: 1px solid rgb(255, 255, 255, 0.1);
     font-size: var(--font-down-1);
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Staff posts: badge next to the name + accent on the post
+// ---------------------------------------------------------------------------
+@if $highlight_staff_posts == "true" {
+  .topic-post:has(.names .staff) {
+    .topic-body {
+      border-left: 3px solid var(--tertiary);
+      background: color-mix(in srgb, var(--tertiary) 4%, transparent);
+      border-radius: 0 0.5em 0.5em 0;
+    }
+
+    @if $staff_badge_label != "" {
+      .names::after {
+        content: "#{$staff_badge_label}";
+        display: inline-flex;
+        align-items: center;
+        margin-left: 0.5em;
+        padding: 0.15em 0.55em;
+        border-radius: 999px;
+        background: var(--tertiary);
+        color: #fff;
+        font-size: var(--font-down-2);
+        font-weight: 600;
+        line-height: 1.4;
+        white-space: nowrap;
+      }
+    }
   }
 }

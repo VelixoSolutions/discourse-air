@@ -8,27 +8,7 @@ sidebar_for_staff:
 
 nav_links:
   type: objects
-  default:
-    - label: "Latest"
-      url: "/latest"
-      icon: "list"
-      audience: "everyone"
-    - label: "Categories"
-      url: "/categories"
-      icon: "table-cells-large"
-      audience: "everyone"
-    - label: "Tags"
-      url: "/tags"
-      icon: "tag"
-      audience: "everyone"
-    - label: "Review"
-      url: "/review"
-      icon: "flag"
-      audience: "staff"
-    - label: "Admin"
-      url: "/admin"
-      icon: "wrench"
-      audience: "staff"
+  default: []
   schema:
     name: "link"
     identifier: "label"
@@ -171,3 +151,11 @@ footer_links:
       url:
         type: string
         required: true
+
+highlight_staff_posts:
+  type: bool
+  default: true
+
+staff_badge_label:
+  type: string
+  default: "Velixo Team"

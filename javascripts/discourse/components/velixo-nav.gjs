@@ -31,31 +31,33 @@ export default class VelixoNav extends Component {
   }
 
   <template>
-    <nav
-      class={{concatClass "velixo-nav" (concat "velixo-nav--" @placement)}}
-      aria-label="Main"
-    >
-      <ul class="velixo-nav__list">
-        {{#each this.links as |link|}}
-          <li class="velixo-nav__item">
-            <a
-              href={{link.href}}
-              class={{concatClass
-                "velixo-nav__link"
-                (if link.active "--active")
-              }}
-              aria-current={{if link.active "page"}}
-              target={{if link.external "_blank"}}
-              rel={{if link.external "noopener noreferrer"}}
-            >
-              {{#if link.icon}}
-                {{icon link.icon}}
-              {{/if}}
-              <span>{{link.label}}</span>
-            </a>
-          </li>
-        {{/each}}
-      </ul>
-    </nav>
+    {{#if this.links.length}}
+      <nav
+        class={{concatClass "velixo-nav" (concat "velixo-nav--" @placement)}}
+        aria-label="Main"
+      >
+        <ul class="velixo-nav__list">
+          {{#each this.links as |link|}}
+            <li class="velixo-nav__item">
+              <a
+                href={{link.href}}
+                class={{concatClass
+                  "velixo-nav__link"
+                  (if link.active "--active")
+                }}
+                aria-current={{if link.active "page"}}
+                target={{if link.external "_blank"}}
+                rel={{if link.external "noopener noreferrer"}}
+              >
+                {{#if link.icon}}
+                  {{icon link.icon}}
+                {{/if}}
+                <span>{{link.label}}</span>
+              </a>
+            </li>
+          {{/each}}
+        </ul>
+      </nav>
+    {{/if}}
   </template>
 }

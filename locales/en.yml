@@ -14,3 +14,5 @@ en:
       footer_links: "Footer links, grouped into columns by their section name."
       show_banner_title: "Show the welcome banner title (\"Welcome to …\" / \"Welcome, name!\"). When off, the subtitle leads the banner."
       category_box_icons: "Show each category's icon (set in the category's settings) on the category boxes instead of its abbreviation."
+      highlight_staff_posts: "Highlight posts written by staff (admins and moderators), with a badge next to the author's name."
+      staff_badge_label: "Text of the badge shown next to the author's name on staff posts. Leave empty for no badge."
