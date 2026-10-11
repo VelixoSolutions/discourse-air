@@ -17,6 +17,11 @@ export default apiInitializer((api) => {
     <template><VelixoNav @placement="strip" /></template>
   );
 
+  // Keep the full logo when scrolling into a topic. Core swaps it for
+  // logo_small (unset on this site, so the logo vanished) while the header
+  // shows the topic title, which the pinned #topic-title replaces anyway.
+  api.registerValueTransformer("home-logo-minimized", () => false);
+
   api.renderInOutlet("welcome-banner-below-headline", VelixoHeroSubtitle);
   api.renderInOutlet("welcome-banner-below-input", VelixoHeroLinks);
 

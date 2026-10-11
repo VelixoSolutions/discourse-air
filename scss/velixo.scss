@@ -155,6 +155,7 @@ html .background-container,
 }
 
 .d-header {
+  height: 4rem; // more room above/below the logo, search and avatar
   box-shadow: 0 1px 0 var(--primary-low);
 }
 
@@ -423,6 +424,10 @@ html body #main-outlet,
 // ---------------------------------------------------------------------------
 // Footer: one line — copyright + legal links
 // ---------------------------------------------------------------------------
+.velixo-topic-title-sentinel {
+  height: 0;
+}
+
 .velixo-footer {
   display: flex;
   flex-wrap: wrap;
@@ -460,19 +465,152 @@ html body #main-outlet,
 }
 
 // ---------------------------------------------------------------------------
-// Staff posts: badge next to the name + accent on the post
+// Topic page
+// ---------------------------------------------------------------------------
+html body #main-outlet {
+  --velixo-card-pad: 3em;
+
+  @media screen and (width <= 700px) {
+    --velixo-card-pad: 1.5em;
+  }
+}
+
+// Title, category and tags stay pinned to the top of the card while
+// scrolling. --velixo-topic-title-height is measured in
+// init-velixo-topic-title.js so the sticky avatars and timeline sit below it.
+#topic-title {
+  position: sticky;
+  top: var(--header-offset);
+
+  // above the sticky post avatars (2) and the timeline (100), which slide
+  // under it at the end of a topic; below the header and menus
+  z-index: 101;
+  margin: -1.5em calc(-1 * var(--velixo-card-pad)) 1.5em;
+  padding: 1.5em var(--velixo-card-pad) 1em;
+  border-bottom: 1px solid transparent;
+  background: var(--secondary);
+
+  h1 {
+    margin-bottom: 0.4em;
+  }
+
+  .topic-category {
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5em;
+  }
+
+  .badge-category__wrapper,
+  .discourse-tag {
+    display: inline-flex;
+    align-items: center;
+    height: 1.75rem;
+    padding: 0 0.7em;
+    border-radius: 999px;
+    font-size: var(--font-down-1);
+    line-height: 1;
+  }
+
+  .badge-category__wrapper {
+    background: color-mix(
+      in srgb,
+      var(--category-badge-color) 12%,
+      var(--secondary)
+    );
+
+    .badge-category {
+      gap: 0.35em;
+      color: var(--primary-high);
+    }
+
+    .d-icon {
+      color: var(--category-badge-color);
+    }
+  }
+
+  .discourse-tags {
+    gap: 0.5em;
+  }
+
+  .discourse-tag {
+    background: var(--primary-very-low);
+    border: 1px solid var(--primary-low);
+    color: var(--primary-high) !important;
+  }
+}
+
+// Once pinned, round the bar's top corners so the card keeps its shape.
+// With the navy band behind the card this paints navy outside a quarter
+// circle (border-radius alone would show the posts scrolling underneath).
+// Only while pinned: at rest the bar sits inside the card, below its top edge.
+html.velixo-topic-title-stuck #topic-title {
+  @if $hero_style == "navy" {
+    background:
+      radial-gradient(
+          circle at 100% 100%,
+          transparent 1em,
+          var(--velixo-navy) 1em
+        )
+        left
+        top /
+        1em
+        1em
+        no-repeat,
+      radial-gradient(circle at 0 100%, transparent 1em, var(--velixo-navy) 1em)
+        right
+        top /
+        1em
+        1em
+        no-repeat,
+      var(--secondary);
+  } @else {
+    border-radius: 1em 1em 0 0;
+  }
+}
+
+// once pinned, a hairline separates the title from the posts scrolling under
+html.velixo-topic-title-stuck #topic-title {
+  border-bottom-color: var(--primary-low);
+}
+
+// (selectors match core's specificity on the topic page so these win)
+html body .container.posts .topic-post .topic-avatar {
+  top: calc(var(--header-offset) + var(--velixo-topic-title-height, 0px));
+}
+
+html body .container.posts .topic-navigation {
+  top: calc(
+    var(--header-offset) + var(--velixo-topic-title-height, 0px) + 1.5em
+  );
+}
+
+// the header's own copy of the title is redundant with the pinned one
+.d-header .extra-info-wrapper {
+  display: none;
+}
+
+// room between the avatar column and the post (the group flair overhangs)
+.topic-post .topic-avatar {
+  @include viewport.from(md) {
+    margin-right: 0.75em;
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Staff posts: a "Velixo Team" badge after the name; otherwise the post looks
+// like any other (the avatar flair comes from the velixo-team group)
 // ---------------------------------------------------------------------------
 @if $highlight_staff_posts == "true" {
   .topic-post:has(.names .staff) {
-    .topic-body {
-      border-left: 3px solid var(--tertiary);
-      background: color-mix(in srgb, var(--tertiary) 4%, transparent);
-      border-radius: 0 0.5em 0.5em 0;
+    // no moderator shield: every team member looks the same
+    .names .svg-icon-title {
+      display: none;
     }
 
     @if $staff_badge_label != "" {
       .names::after {
         content: "#{$staff_badge_label}";
+        order: 99; // after the name, also in the mobile flex layout
         display: inline-flex;
         align-items: center;
         margin-left: 0.5em;

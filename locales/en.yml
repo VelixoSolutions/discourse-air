@@ -12,7 +12,7 @@ en:
       show_footer: "Show the footer line with the copyright and legal links."
       show_banner_title: "Show the welcome banner title (\"Welcome to …\" / \"Welcome, name!\"). When off, the subtitle leads the banner."
       category_box_icons: "Show each category's icon (set in the category's settings) on the category boxes instead of its abbreviation."
-      highlight_staff_posts: "Highlight posts written by staff (admins and moderators), with a badge next to the author's name."
+      highlight_staff_posts: "Show a badge next to the author's name on posts written by staff (admins and moderators)."
       staff_badge_label: "Text of the badge shown next to the author's name on staff posts. Leave empty for no badge."
       footer_copyright: "Text after the © year in the footer's bottom row."
       footer_legal_links: "Links in the footer's bottom row (Terms, Privacy, Legal)."
