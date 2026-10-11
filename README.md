@@ -1,3 +1,15 @@
+# Velixo Theme
+
+Velixo's fork of the Discourse Air theme: Velixo brand colours (light + dark palettes),
+a brand-gradient banner, and a simple top navigation bar that replaces the hamburger + sidebar.
+
+- **Theme settings** → `hide_sidebar` (on by default) and `nav_links` (label, URL, icon, audience:
+  everyone / logged_in / anonymous / staff). On small screens the links show as a scrollable strip
+  under the header.
+- The dark-mode logo is the `logo_dark` site setting (white wordmark), not part of the theme.
+
+---
+
 A clean & modern theme with a couple of theme components included to enhance your forum!
 
 **Light Mode**

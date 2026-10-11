@@ -1,3 +1,6 @@
 en:
   theme_metadata:
-    description: "A clean and modern theme for Discourse."
+    description: "Velixo community theme, based on Discourse Air, with a simple top navigation bar instead of the sidebar."
+    settings:
+      hide_sidebar: "Hide the sidebar and the hamburger button. Navigation is provided by the links in the header instead."
+      nav_links: "Links shown in the header navigation bar (and in a scrollable strip under the header on small screens)."

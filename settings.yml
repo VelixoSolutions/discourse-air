@@ -1,0 +1,47 @@
+hide_sidebar:
+  type: bool
+  default: true
+
+nav_links:
+  type: objects
+  default:
+    - label: "Latest"
+      url: "/latest"
+      icon: "list"
+      audience: "everyone"
+    - label: "Categories"
+      url: "/categories"
+      icon: "table-cells-large"
+      audience: "everyone"
+    - label: "Tags"
+      url: "/tags"
+      icon: "tag"
+      audience: "everyone"
+    - label: "Review"
+      url: "/review"
+      icon: "flag"
+      audience: "staff"
+    - label: "Admin"
+      url: "/admin"
+      icon: "wrench"
+      audience: "staff"
+  schema:
+    name: "link"
+    identifier: "label"
+    properties:
+      label:
+        type: string
+        required: true
+      url:
+        type: string
+        required: true
+      icon:
+        type: string
+      audience:
+        type: enum
+        default: everyone
+        choices:
+          - everyone
+          - logged_in
+          - anonymous
+          - staff

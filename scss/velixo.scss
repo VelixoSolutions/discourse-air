@@ -1,0 +1,141 @@
+@use "lib/viewport";
+
+// Velixo branding and top navigation (replaces the sidebar + hamburger)
+:root {
+  --velixo-radius: 0.75em;
+  --velixo-bg: color-mix(in srgb, var(--tertiary) 5%, var(--secondary));
+
+  // fixed brand colours so the band reads the same in light and dark mode
+  --velixo-band: linear-gradient(100deg, #2e429b 0%, #345ad9 100%);
+}
+
+// Sidebar + hamburger removal
+html.velixo-hide-sidebar {
+  .header-sidebar-toggle,
+  .hamburger-dropdown,
+  .sidebar-wrapper,
+  .sidebar-hamburger-dropdown {
+    display: none !important;
+  }
+
+  body.has-sidebar-page #main-outlet-wrapper {
+    grid-template-columns: 0 minmax(0, 1fr);
+    gap: 0;
+    padding-left: 0;
+  }
+
+  body.has-sidebar-page #main-outlet {
+    max-width: 1150px;
+    margin-inline: auto;
+  }
+
+  // the header no longer needs to line up with a sidebar column
+  .d-header .title {
+    padding-left: 0;
+  }
+}
+
+// The banner sits on the brand band in both colour schemes
+.welcome-banner.--location-below-site-header .welcome-banner__title,
+.welcome-banner.--location-below-site-header .welcome-banner__subheader {
+  color: #fff;
+}
+
+// Navigation
+.velixo-nav {
+  &__list {
+    display: flex;
+    align-items: center;
+    gap: 0.25em;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  &__link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45em;
+    padding: 0.5em 0.85em;
+    border-radius: 0.5em;
+    color: var(--header_primary);
+    font-weight: 500;
+    white-space: nowrap;
+    transition: background-color 100ms ease-in-out;
+
+    .d-icon {
+      color: var(--header_primary-medium);
+      font-size: 0.9em;
+    }
+
+    &:hover,
+    &:focus-visible {
+      background-color: var(--d-hover, var(--tertiary-very-low));
+      color: var(--header_primary);
+    }
+
+    &.--active {
+      background-color: var(--tertiary-very-low);
+      color: var(--tertiary);
+
+      .d-icon {
+        color: var(--tertiary);
+      }
+    }
+  }
+
+  &--header {
+    margin-left: 1.5em;
+
+    @include viewport.until(lg) {
+      display: none;
+    }
+  }
+
+  &--strip {
+    display: none;
+    background: var(--header_background);
+    border-bottom: 1px solid var(--primary-low);
+    overflow-x: auto;
+    scrollbar-width: none;
+
+    .velixo-nav__list {
+      padding: 0.4em 0.75em;
+    }
+
+    @include viewport.until(lg) {
+      display: block;
+    }
+  }
+}
+
+// Brand surfaces
+html body:not(.no-ember) {
+  background: var(--velixo-bg);
+}
+
+html .background-container,
+.published-page::before {
+  background: var(--velixo-band);
+}
+
+.d-header {
+  box-shadow: 0 1px 0 var(--primary-low);
+}
+
+.btn-primary {
+  border-radius: 0.5em;
+}
+
+.custom-search-banner-wrap,
+.welcome-banner {
+  .search-menu input[type="text"],
+  .search-input {
+    border-radius: 0.5em;
+  }
+}
+
+html body #main-outlet,
+.full-width .contents .topic-list .topic-list-body .topic-list-item {
+  border-radius: var(--velixo-radius);
+}
