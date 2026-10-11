@@ -15,6 +15,14 @@ export default class VelixoFooter extends Component {
     return [...sections].map(([title, links]) => ({ title, links }));
   }
 
+  get legalLinks() {
+    return (settings.footer_legal_links || []).map(decorateLink);
+  }
+
+  get phoneHref() {
+    return `tel:${settings.footer_phone.replace(/[^\d+]/g, "")}`;
+  }
+
   get year() {
     return new Date().getFullYear();
   }
@@ -24,9 +32,16 @@ export default class VelixoFooter extends Component {
       <div class="velixo-footer__inner">
         <div class="velixo-footer__brand">
           <img src={{LOGO_URL}} alt="Velixo" class="velixo-footer__logo" />
-          {{#if settings.footer_tagline}}
-            <p>{{settings.footer_tagline}}</p>
-          {{/if}}
+          <ul class="velixo-footer__contact">
+            {{#if settings.footer_email}}
+              <li><a
+                  href="mailto:{{settings.footer_email}}"
+                >{{settings.footer_email}}</a></li>
+            {{/if}}
+            {{#if settings.footer_phone}}
+              <li><a href={{this.phoneHref}}>{{settings.footer_phone}}</a></li>
+            {{/if}}
+          </ul>
         </div>
         {{#each this.sections as |section|}}
           <nav class="velixo-footer__col" aria-label={{section.title}}>
@@ -45,7 +60,20 @@ export default class VelixoFooter extends Component {
           </nav>
         {{/each}}
       </div>
-      <div class="velixo-footer__legal">© {{this.year}} Velixo</div>
+      <div class="velixo-footer__legal">
+        <span>©{{this.year}} {{settings.footer_copyright}}</span>
+        <ul>
+          {{#each this.legalLinks as |link|}}
+            <li>
+              <a
+                href={{link.href}}
+                target={{if link.external "_blank"}}
+                rel={{if link.external "noopener noreferrer"}}
+              >{{link.label}}</a>
+            </li>
+          {{/each}}
+        </ul>
+      </div>
     </footer>
   </template>
 }

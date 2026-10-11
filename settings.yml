@@ -98,46 +98,110 @@ show_footer:
   type: bool
   default: true
 
-footer_tagline:
+footer_email:
   type: string
-  default: "Live ERP data in Excel, for every finance team."
+  default: "info@velixo.com"
+
+footer_phone:
+  type: string
+  default: "1-855-583-5496"
 
 footer_links:
   type: objects
   default:
-    - section: "Community"
-      label: "Latest topics"
-      url: "/latest"
-    - section: "Community"
-      label: "Categories"
-      url: "/categories"
-    - section: "Community"
-      label: "Guidelines"
-      url: "/guidelines"
-    - section: "Learn"
-      label: "Help Center"
-      url: "https://www.velixo.com/help/"
-    - section: "Learn"
+    - section: "Capabilities"
+      label: "Report"
+      url: "https://www.velixo.com/product/live-reporting-features-in-excel/"
+    - section: "Capabilities"
+      label: "Analyze"
+      url: "https://www.velixo.com/product/live-reporting-exploration-analysis-in-excel-for-erp/"
+    - section: "Capabilities"
+      label: "Budget & Plan"
+      url: "https://www.velixo.com/product/excel-based-budgeting-planning-for-erps/"
+    - section: "Capabilities"
+      label: "Push"
+      url: "https://www.velixo.com/product/automate-data-push-to-your-erp-from-excel/"
+    - section: "Capabilities"
+      label: "Govern & Collaborate"
+      url: "https://www.velixo.com/product/erp-security-governance-collaboration/"
+    - section: "Capabilities"
+      label: "Distribute & Automate"
+      url: "https://www.velixo.com/product/report-embedding-distribution-automated-workflows/"
+    - section: "Capabilities"
+      label: "Intelligence"
+      url: "https://www.velixo.com/product/ai-velixo-intelligence/"
+    - section: "Supported ERPs"
+      label: "Acumatica"
+      url: "https://www.velixo.com/integrations/excel-reporting-budgeting-automation-for-acumatica/"
+    - section: "Supported ERPs"
+      label: "Cegid XRP Flex"
+      url: "https://www.velixo.com/integrations/excel-reporting-budgeting-automation-for-cegid-xrp-flex/"
+    - section: "Supported ERPs"
+      label: "Dynamics 365 Business Central"
+      url: "https://www.velixo.com/integrations/microsoft-dynamics-365-business-central/"
+    - section: "Supported ERPs"
+      label: "Jamis Prime"
+      url: "https://www.velixo.com/integrations/excel-reporting-budgeting-automation-for-jamis-prime/"
+    - section: "Supported ERPs"
+      label: "MYOB Acumatica"
+      url: "https://www.velixo.com/integrations/excel-reporting-budgeting-automation-for-myob-acumatica/"
+    - section: "Supported ERPs"
+      label: "Sage Intacct"
+      url: "https://www.velixo.com/integrations/excel-reporting-budgeting-automation-for-sage-intacct/"
+    - section: "Comparison"
+      label: "Velixo vs CData"
+      url: "https://www.velixo.com/compare/velixo-vs-cdata/"
+    - section: "Comparison"
+      label: "Velixo vs Jet Reports"
+      url: "https://www.velixo.com/compare/velixo-vs-jet-reports/"
+    - section: "Comparison"
+      label: "Velixo vs Cosmos"
+      url: "https://www.velixo.com/compare/velixo-vs-cosmos/"
+    - section: "Comparison"
+      label: "Velixo vs Spreadsheet Server"
+      url: "https://www.velixo.com/compare/velixo-vs-spreadsheet-server/"
+    - section: "Comparison"
+      label: "Velixo vs Martus"
+      url: "https://www.velixo.com/compare/velixo-vs-martus/"
+    - section: "Comparison"
+      label: "Velixo vs Datarails"
+      url: "https://www.velixo.com/compare/velixo-vs-datarails/"
+    - section: "Comparison"
+      label: "Velixo vs Nectari"
+      url: "https://www.velixo.com/compare/velixo-vs-nectari/"
+    - section: "Explore"
+      label: "By role"
+      url: "https://www.velixo.com/solutions/roles/"
+    - section: "Explore"
+      label: "By industry"
+      url: "https://www.velixo.com/solutions/industries/"
+    - section: "Explore"
+      label: "By use-case"
+      url: "https://www.velixo.com/solutions/use-case/"
+    - section: "Explore"
+      label: "Become a partner"
+      url: "https://www.velixo.com/partnering-for-erp-reporting-in-excel/"
+    - section: "Explore"
       label: "Velixo Academy"
       url: "https://learning.velixo.com/"
-    - section: "Learn"
-      label: "Template library"
-      url: "https://app.velixo.com/portal/"
-    - section: "Learn"
-      label: "Videos"
-      url: "https://www.youtube.com/c/velixo"
-    - section: "Velixo"
-      label: "velixo.com"
-      url: "https://www.velixo.com/"
-    - section: "Velixo"
-      label: "Product updates"
-      url: "https://www.velixo.com/resource-center/?resource_types=product-update"
-    - section: "Velixo"
+    - section: "Explore"
+      label: "Help Center"
+      url: "https://www.velixo.com/help/"
+    - section: "Explore"
+      label: "About Us"
+      url: "https://www.velixo.com/about-us/"
+    - section: "Explore"
+      label: "Careers"
+      url: "https://www.velixo.com/careers/"
+    - section: "Explore"
       label: "Blog"
       url: "https://www.velixo.com/blog/"
-    - section: "Velixo"
-      label: "Contact us"
+    - section: "Explore"
+      label: "Contact Us"
       url: "https://www.velixo.com/contact-us/"
+    - section: "Explore"
+      label: "Request a Demo"
+      url: "https://www.velixo.com/request-a-demo/"
   schema:
     name: "link"
     identifier: "label"
@@ -145,6 +209,30 @@ footer_links:
       section:
         type: string
         required: true
+      label:
+        type: string
+        required: true
+      url:
+        type: string
+        required: true
+
+footer_copyright:
+  type: string
+  default: "Velixo All rights reserved"
+
+footer_legal_links:
+  type: objects
+  default:
+    - label: "Terms of Use"
+      url: "https://www.velixo.com/terms-of-use/"
+    - label: "Privacy Policy"
+      url: "https://www.velixo.com/privacy-policy-june-2026/"
+    - label: "Legal"
+      url: "https://www.velixo.com/agreements/"
+  schema:
+    name: "link"
+    identifier: "label"
+    properties:
       label:
         type: string
         required: true

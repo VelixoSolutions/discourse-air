@@ -9,50 +9,54 @@
   --velixo-band: linear-gradient(100deg, #2e429b 0%, #345ad9 100%);
 }
 
-// Sidebar + hamburger removal
-html.velixo-hide-sidebar {
-  .header-sidebar-toggle,
-  .hamburger-dropdown,
-  .sidebar-wrapper,
-  .sidebar-hamburger-dropdown {
-    display: none !important;
-  }
-
-  body.has-sidebar-page #main-outlet-wrapper {
-    grid-template-columns: 0 minmax(0, 1fr);
-    gap: 0;
-    padding-left: 0;
-  }
-
-  body.has-sidebar-page #main-outlet {
-    max-width: 1150px;
-    margin-inline: auto;
-  }
-
-  // the header no longer needs to line up with a sidebar column
-  .d-header .title {
-    padding-left: 0;
-  }
-
-  // line the header up with the content card (#main-outlet: 1150px + 3em
-  // padding each side, narrower below 1120px — see common.scss)
-  .d-header .wrap {
-    max-width: calc(1150px + 6em);
-    margin-inline: auto;
-    padding-inline: 0;
-
-    @media screen and (width <= 1120px) {
-      width: calc(80% + 6em);
+// Sidebar + hamburger removal. Decided in CSS (theme settings are Sass
+// variables) so it applies on first paint; staff get .velixo-staff-sidebar
+// from init-velixo-nav.gjs to bring the sidebar back.
+@if $hide_sidebar == "true" {
+  html:not(.velixo-staff-sidebar) {
+    .header-sidebar-toggle,
+    .hamburger-dropdown,
+    .sidebar-wrapper,
+    .sidebar-hamburger-dropdown {
+      display: none !important;
     }
 
-    @media screen and (width <= 1075px) {
-      width: calc(85% + 6em);
+    body.has-sidebar-page #main-outlet-wrapper {
+      grid-template-columns: 0 minmax(0, 1fr);
+      gap: 0;
+      padding-left: 0;
     }
 
-    @include viewport.until(lg) {
-      box-sizing: border-box;
-      width: 100%;
-      padding-inline: 1.5em;
+    body.has-sidebar-page #main-outlet {
+      max-width: 1150px;
+      margin-inline: auto;
+    }
+
+    // the header no longer needs to line up with a sidebar column
+    .d-header .title {
+      padding-left: 0;
+    }
+
+    // line the header up with the content card (#main-outlet: 1150px + 3em
+    // padding each side, narrower below 1120px — see common.scss)
+    .d-header .wrap {
+      max-width: calc(1150px + 6em);
+      margin-inline: auto;
+      padding-inline: 0;
+
+      @media screen and (width <= 1120px) {
+        width: calc(80% + 6em);
+      }
+
+      @media screen and (width <= 1075px) {
+        width: calc(85% + 6em);
+      }
+
+      @include viewport.until(lg) {
+        box-sizing: border-box;
+        width: 100%;
+        padding-inline: 1.5em;
+      }
     }
   }
 }
@@ -222,17 +226,19 @@ html body #main-outlet,
   }
 }
 
-html.velixo-hide-banner-title {
-  .welcome-banner.--location-below-site-header .welcome-banner__title {
-    display: none;
-  }
+@if $show_banner_title == "false" {
+  html {
+    .welcome-banner.--location-below-site-header .welcome-banner__title {
+      display: none;
+    }
 
-  .velixo-hero__subtitle {
-    margin-top: 0;
-    color: var(--velixo-hero-fg);
-    font-size: var(--font-up-3);
-    font-weight: 600;
-    line-height: 1.35;
+    .velixo-hero__subtitle {
+      margin-top: 0;
+      color: var(--velixo-hero-fg);
+      font-size: var(--font-up-3);
+      font-weight: 600;
+      line-height: 1.35;
+    }
   }
 }
 
@@ -303,110 +309,114 @@ html.velixo-hide-banner-title {
 // ---------------------------------------------------------------------------
 // Banner style: navy — matches velixo.com (navy header + hero, blue CTAs)
 // ---------------------------------------------------------------------------
-html.velixo-hero--navy {
-  .background-container {
-    background: var(--velixo-navy);
-    clip-path: none;
-    height: 400px;
-  }
-
-  .d-header {
-    background: var(--velixo-navy);
-    box-shadow: none;
-
-    #site-logo {
-      content: url("https://secure.velixo.com/logos/logo-full-gradient-white.svg");
+@if $hero_style == "navy" {
+  html {
+    .background-container {
+      background: var(--velixo-navy);
+      clip-path: none;
+      height: 400px;
     }
 
-    .d-header-icons .icon .d-icon,
-    .velixo-nav__link,
-    .velixo-nav__link .d-icon {
-      color: #fff;
-    }
+    .d-header {
+      background: var(--velixo-navy);
+      box-shadow: none;
 
-    .d-header-icons .icon:hover {
-      background: rgb(255, 255, 255, 0.12);
-    }
-
-    .velixo-nav__link:hover,
-    .velixo-nav__link.--active {
-      background: rgb(255, 255, 255, 0.12);
-      color: #fff;
-
-      .d-icon {
-        color: var(--velixo-accent);
+      #site-logo {
+        content: url("https://secure.velixo.com/logos/logo-full-gradient-white.svg");
       }
-    }
 
-    // one clear call to action, like velixo.com: Sign Up solid, Log In outline
-    .btn-primary {
-      background: var(--velixo-cta);
-    }
-
-    .login-button.btn-primary {
-      background: transparent;
-      border: 1px solid rgb(255, 255, 255, 0.45);
-      color: #fff;
-
-      .d-icon {
+      .d-header-icons .icon .d-icon,
+      .velixo-nav__link,
+      .velixo-nav__link .d-icon {
         color: #fff;
       }
 
-      &:hover {
+      .d-header-icons .icon:hover {
         background: rgb(255, 255, 255, 0.12);
       }
-    }
-  }
 
-  .velixo-nav--strip {
-    background: var(--velixo-navy);
-    border-bottom-color: rgb(255, 255, 255, 0.1);
-
-    .velixo-nav__link {
-      color: #fff;
-
-      .d-icon {
-        color: rgb(255, 255, 255, 0.7);
-      }
-
-      &.--active {
+      .velixo-nav__link:hover,
+      .velixo-nav__link.--active {
         background: rgb(255, 255, 255, 0.12);
         color: #fff;
+
+        .d-icon {
+          color: var(--velixo-accent);
+        }
+      }
+
+      // one clear call to action, like velixo.com: Sign Up solid, Log In outline
+      .btn-primary {
+        background: var(--velixo-cta);
+      }
+
+      .login-button.btn-primary {
+        background: transparent;
+        border: 1px solid rgb(255, 255, 255, 0.45);
+        color: #fff;
+
+        .d-icon {
+          color: #fff;
+        }
+
+        &:hover {
+          background: rgb(255, 255, 255, 0.12);
+        }
       }
     }
-  }
 
-  --velixo-eyebrow-bg: #606d9b;
+    .velixo-nav--strip {
+      background: var(--velixo-navy);
+      border-bottom-color: rgb(255, 255, 255, 0.1);
+
+      .velixo-nav__link {
+        color: #fff;
+
+        .d-icon {
+          color: rgb(255, 255, 255, 0.7);
+        }
+
+        &.--active {
+          background: rgb(255, 255, 255, 0.12);
+          color: #fff;
+        }
+      }
+    }
+
+    --velixo-eyebrow-bg: #606d9b;
+  }
 }
 
 // ---------------------------------------------------------------------------
 // Banner style: light — pale blue band with navy text
 // ---------------------------------------------------------------------------
-html.velixo-hero--light {
-  --velixo-hero-fg: var(--primary);
-  --velixo-hero-muted: var(--primary-high);
-  --velixo-chip-bg: var(--secondary);
-  --velixo-chip-border: var(--tertiary-low);
-  --velixo-chip-hover: var(--tertiary-very-low);
-  --velixo-eyebrow-bg: var(--tertiary-low);
-  --velixo-accent: var(--tertiary);
+@if $hero_style == "light" {
+  html {
+    --velixo-hero-fg: var(--primary);
+    --velixo-hero-muted: var(--primary-high);
+    --velixo-chip-bg: var(--secondary);
+    --velixo-chip-border: var(--tertiary-low);
+    --velixo-chip-hover: var(--tertiary-very-low);
+    --velixo-eyebrow-bg: var(--tertiary-low);
+    --velixo-accent: var(--tertiary);
 
-  .background-container {
-    background: color-mix(in srgb, var(--tertiary) 10%, var(--secondary));
-    clip-path: ellipse(160% 62% at 70% -10%);
-  }
-
-  .welcome-banner.--location-below-site-header .welcome-banner__title {
-    color: var(--header_primary);
-
-    &::before {
-      color: var(--tertiary);
+    .background-container {
+      background: color-mix(in srgb, var(--tertiary) 10%, var(--secondary));
+      clip-path: ellipse(160% 62% at 70% -10%);
     }
-  }
 
-  .welcome-banner .search-menu .search-input {
-    border-color: var(--tertiary-low);
-    box-shadow: 0 4px 16px rgb(36, 50, 97, 0.08);
+    .welcome-banner.--location-below-site-header .welcome-banner__title {
+      color: var(--header_primary);
+
+      &::before {
+        color: var(--tertiary);
+      }
+    }
+
+    .welcome-banner .search-menu .search-input {
+      border-color: var(--tertiary-low);
+      box-shadow: 0 4px 16px rgb(36, 50, 97, 0.08);
+    }
   }
 }
 
@@ -430,7 +440,7 @@ html.velixo-hero--light {
 
   &__inner {
     display: grid;
-    grid-template-columns: 2fr repeat(3, 1fr);
+    grid-template-columns: 1.3fr repeat(4, 1fr);
     gap: 2em;
     max-width: 1150px;
     margin: 0 auto;
@@ -445,11 +455,10 @@ html.velixo-hero--light {
     @include viewport.until(md) {
       grid-column: 1 / -1;
     }
+  }
 
-    p {
-      margin: 0.75em 0 0;
-      max-width: 22em;
-    }
+  &__contact {
+    margin-top: 1em !important;
   }
 
   &__logo {
@@ -475,11 +484,25 @@ html.velixo-hero--light {
   }
 
   &__legal {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1em 2em;
     max-width: 1150px;
     margin: 0 auto;
     padding: 1em 1.5em 2em;
     border-top: 1px solid rgb(255, 255, 255, 0.1);
     font-size: var(--font-down-1);
+
+    ul {
+      display: flex;
+      gap: 1.5em;
+    }
+
+    li {
+      margin: 0;
+    }
   }
 }
 

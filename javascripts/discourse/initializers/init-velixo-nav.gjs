@@ -24,14 +24,8 @@ export default apiInitializer((api) => {
     api.renderInOutlet("below-footer", VelixoFooter);
   }
 
-  const root = document.documentElement;
-  root.classList.add(`velixo-hero--${settings.hero_style}`);
-  if (!settings.show_banner_title) {
-    root.classList.add("velixo-hide-banner-title");
-  }
   // Staff keep the hamburger + sidebar: it is how the admin area is navigated
-  const isStaff = !!api.getCurrentUser()?.staff;
-  if (settings.hide_sidebar && !(isStaff && settings.sidebar_for_staff)) {
-    root.classList.add("velixo-hide-sidebar");
+  if (settings.sidebar_for_staff && api.getCurrentUser()?.staff) {
+    document.documentElement.classList.add("velixo-staff-sidebar");
   }
 });
