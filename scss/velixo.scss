@@ -607,12 +607,14 @@ html body #main-outlet,
   }
 }
 
-// (selectors match core's specificity on the topic page so these win)
-html body .container.posts .topic-post .topic-avatar {
+// (selectors match core's specificity on the topic page so these win; only
+// where the avatars are sticky — on phones they are position: relative, and
+// a top offset would push them down into the post)
+html:not(.mobile-view) body .container.posts .topic-post .topic-avatar {
   top: calc(var(--velixo-sticky-top) + var(--velixo-topic-title-height, 0px));
 }
 
-html body .container.posts .topic-navigation {
+html:not(.mobile-view) body .container.posts .topic-navigation {
   top: calc(
     var(--velixo-sticky-top) + var(--velixo-topic-title-height, 0px) + 1.5em
   );
@@ -658,5 +660,39 @@ html body .container.posts .topic-navigation {
         white-space: nowrap;
       }
     }
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Names on posts: the full name only (the username stays in the user card).
+// Users without a full name keep their username.
+// ---------------------------------------------------------------------------
+.topic-post .names:has(.full-name) .username {
+  display: none;
+}
+
+.topic-post .names {
+  align-items: center;
+}
+
+// ---------------------------------------------------------------------------
+// Phones: no card around the content, so the navy band stays behind the
+// header only instead of running into the topic list
+// ---------------------------------------------------------------------------
+html.mobile-view {
+  .background-container {
+    display: none;
+  }
+
+  // Air colours this for the band behind it; without the band it's body text
+  .list-controls .nav-pills .list-control-toggle-link-trigger {
+    color: var(--primary);
+  }
+
+  .welcome-banner.--location-below-site-header {
+    margin-top: 0.75em;
+    padding-inline: 1em;
+    border-radius: var(--velixo-radius);
+    background: var(--velixo-navy);
   }
 }
