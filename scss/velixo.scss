@@ -421,87 +421,40 @@ html body #main-outlet,
 }
 
 // ---------------------------------------------------------------------------
-// Footer
+// Footer: one line — copyright + legal links
 // ---------------------------------------------------------------------------
 .velixo-footer {
-  position: relative;
-  margin-top: 3em;
-  background: var(--velixo-navy);
-  color: rgb(255, 255, 255, 0.75);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75em 2em;
+  box-sizing: border-box;
+  max-width: calc(1150px + 6em);
+  margin: 1em auto 0;
+  padding: 1.5em 0 2.5em;
+  color: var(--primary-medium);
 
-  a {
-    color: rgb(255, 255, 255, 0.85);
-
-    &:hover {
-      color: #fff;
-      text-decoration: underline;
-    }
+  @include viewport.until(lg) {
+    padding-inline: 1.5em;
   }
-
-  &__inner {
-    display: grid;
-    grid-template-columns: 1.3fr repeat(4, 1fr);
-    gap: 2em;
-    max-width: 1150px;
-    margin: 0 auto;
-    padding: 3em 1.5em 2em;
-
-    @include viewport.until(md) {
-      grid-template-columns: 1fr 1fr;
-    }
-  }
-
-  &__brand {
-    @include viewport.until(md) {
-      grid-column: 1 / -1;
-    }
-  }
-
-  &__contact {
-    margin-top: 1em !important;
-  }
-
-  &__logo {
-    height: 32px;
-  }
-
-  h3 {
-    margin: 0 0 0.75em;
-    color: #fff;
-    font-size: var(--font-down-1);
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-  }
+  font-size: var(--font-down-1);
 
   ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5em;
     margin: 0;
     padding: 0;
     list-style: none;
   }
 
-  li {
-    margin-bottom: 0.5em;
-  }
+  a {
+    color: var(--header_primary);
+    font-weight: 500;
 
-  &__legal {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: space-between;
-    gap: 1em 2em;
-    max-width: 1150px;
-    margin: 0 auto;
-    padding: 1em 1.5em 2em;
-    border-top: 1px solid rgb(255, 255, 255, 0.1);
-    font-size: var(--font-down-1);
-
-    ul {
-      display: flex;
-      gap: 1.5em;
-    }
-
-    li {
-      margin: 0;
+    &:hover {
+      color: var(--tertiary);
     }
   }
 }
