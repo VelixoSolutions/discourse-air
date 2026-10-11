@@ -109,6 +109,15 @@ html.velixo-hide-sidebar {
   }
 }
 
+// "categories" / "tags" filter placeholders → "Categories" / "Tags"
+// (only the placeholders, so real category and tag names keep their case)
+.category-breadcrumb {
+  .select-kit-selected-name[data-name="categories"] .name,
+  .select-kit-selected-name[data-name="tags"] .name {
+    text-transform: capitalize;
+  }
+}
+
 // Brand surfaces
 html body:not(.no-ember) {
   background: var(--velixo-bg);
@@ -138,4 +147,290 @@ html .background-container,
 html body #main-outlet,
 .full-width .contents .topic-list .topic-list-body .topic-list-item {
   border-radius: var(--velixo-radius);
+}
+
+// ---------------------------------------------------------------------------
+// Banner (welcome banner) — shared pieces
+// ---------------------------------------------------------------------------
+:root {
+  --velixo-navy: #243261;
+  --velixo-cta: #3769ff;
+  --velixo-accent: #58dd81;
+  --velixo-hero-fg: #fff;
+  --velixo-hero-muted: rgb(255, 255, 255, 0.82);
+  --velixo-chip-bg: rgb(255, 255, 255, 0.12);
+  --velixo-chip-border: rgb(255, 255, 255, 0.28);
+  --velixo-chip-hover: rgb(255, 255, 255, 0.22);
+  --velixo-eyebrow-bg: rgb(255, 255, 255, 0.16);
+}
+
+.welcome-banner.--location-below-site-header {
+  .welcome-banner__title {
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    color: var(--velixo-hero-fg);
+
+    @if $hero_eyebrow != "" {
+      &::before {
+        content: "#{$hero_eyebrow}";
+        display: block;
+        width: fit-content;
+        margin: 0 auto 0.9em;
+        padding: 0.4em 0.85em;
+        border-radius: 0.3em;
+        background: var(--velixo-eyebrow-bg);
+        color: var(--velixo-hero-fg);
+        font-size: 0.36em;
+        font-weight: 600;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+      }
+    }
+  }
+}
+
+html.velixo-hide-banner-title {
+  .welcome-banner.--location-below-site-header .welcome-banner__title {
+    display: none;
+  }
+
+  .velixo-hero__subtitle {
+    margin-top: 0;
+    color: var(--velixo-hero-fg);
+    font-size: var(--font-up-3);
+    font-weight: 600;
+    line-height: 1.35;
+  }
+}
+
+// Category boxes: icon instead of the abbreviation
+.category-box .category-logo .velixo-category-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+
+  .d-icon {
+    width: 2.25rem;
+    height: 2.25rem;
+    color: #fff;
+  }
+}
+
+.velixo-hero__subtitle {
+  max-width: 40em;
+  margin: 0.6em auto 0;
+  color: var(--velixo-hero-muted);
+  font-size: var(--font-up-1);
+  line-height: 1.5;
+  text-align: center;
+  text-wrap: balance;
+}
+
+.velixo-hero__links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5em;
+  margin: 1.25em 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.velixo-hero__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+  padding: 0.5em 1em;
+  border: 1px solid var(--velixo-chip-border);
+  border-radius: 999px;
+  background: var(--velixo-chip-bg);
+  color: var(--velixo-hero-fg);
+  font-size: var(--font-down-1);
+  font-weight: 500;
+  transition: background-color 120ms ease-in-out;
+
+  .d-icon {
+    color: var(--velixo-accent);
+  }
+
+  .velixo-hero__ext {
+    color: var(--velixo-hero-muted);
+    font-size: 0.75em;
+  }
+
+  &:hover,
+  &:focus-visible {
+    background: var(--velixo-chip-hover);
+    color: var(--velixo-hero-fg);
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Banner style: navy — matches velixo.com (navy header + hero, blue CTAs)
+// ---------------------------------------------------------------------------
+html.velixo-hero--navy {
+  .background-container {
+    background: var(--velixo-navy);
+    clip-path: none;
+    height: 430px;
+  }
+
+  .d-header {
+    background: var(--velixo-navy);
+    box-shadow: none;
+
+    #site-logo {
+      content: url("https://secure.velixo.com/logos/logo-full-gradient-white.svg");
+    }
+
+    .d-header-icons .icon .d-icon,
+    .velixo-nav__link,
+    .velixo-nav__link .d-icon {
+      color: #fff;
+    }
+
+    .d-header-icons .icon:hover {
+      background: rgb(255, 255, 255, 0.12);
+    }
+
+    .velixo-nav__link:hover,
+    .velixo-nav__link.--active {
+      background: rgb(255, 255, 255, 0.12);
+      color: #fff;
+
+      .d-icon {
+        color: var(--velixo-accent);
+      }
+    }
+
+    .btn-primary {
+      background: var(--velixo-cta);
+    }
+  }
+
+  .velixo-nav--strip {
+    background: var(--velixo-navy);
+    border-bottom-color: rgb(255, 255, 255, 0.1);
+
+    .velixo-nav__link {
+      color: #fff;
+
+      .d-icon {
+        color: rgb(255, 255, 255, 0.7);
+      }
+
+      &.--active {
+        background: rgb(255, 255, 255, 0.12);
+        color: #fff;
+      }
+    }
+  }
+
+  --velixo-eyebrow-bg: #606d9b;
+}
+
+// ---------------------------------------------------------------------------
+// Banner style: light — pale blue band with navy text
+// ---------------------------------------------------------------------------
+html.velixo-hero--light {
+  --velixo-hero-fg: var(--primary);
+  --velixo-hero-muted: var(--primary-high);
+  --velixo-chip-bg: var(--secondary);
+  --velixo-chip-border: var(--tertiary-low);
+  --velixo-chip-hover: var(--tertiary-very-low);
+  --velixo-eyebrow-bg: var(--tertiary-low);
+  --velixo-accent: var(--tertiary);
+
+  .background-container {
+    background: color-mix(in srgb, var(--tertiary) 10%, var(--secondary));
+    clip-path: ellipse(160% 62% at 70% -10%);
+  }
+
+  .welcome-banner.--location-below-site-header .welcome-banner__title {
+    color: var(--header_primary);
+
+    &::before {
+      color: var(--tertiary);
+    }
+  }
+
+  .welcome-banner .search-menu .search-input {
+    border-color: var(--tertiary-low);
+    box-shadow: 0 4px 16px rgb(36, 50, 97, 0.08);
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Footer
+// ---------------------------------------------------------------------------
+.velixo-footer {
+  position: relative;
+  margin-top: 3em;
+  background: var(--velixo-navy);
+  color: rgb(255, 255, 255, 0.75);
+
+  a {
+    color: rgb(255, 255, 255, 0.85);
+
+    &:hover {
+      color: #fff;
+      text-decoration: underline;
+    }
+  }
+
+  &__inner {
+    display: grid;
+    grid-template-columns: 2fr repeat(3, 1fr);
+    gap: 2em;
+    max-width: 1150px;
+    margin: 0 auto;
+    padding: 3em 1.5em 2em;
+
+    @include viewport.until(md) {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  &__brand {
+    @include viewport.until(md) {
+      grid-column: 1 / -1;
+    }
+
+    p {
+      margin: 0.75em 0 0;
+      max-width: 22em;
+    }
+  }
+
+  &__logo {
+    height: 32px;
+  }
+
+  h3 {
+    margin: 0 0 0.75em;
+    color: #fff;
+    font-size: var(--font-down-1);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  li {
+    margin-bottom: 0.5em;
+  }
+
+  &__legal {
+    max-width: 1150px;
+    margin: 0 auto;
+    padding: 1em 1.5em 2em;
+    border-top: 1px solid rgb(255, 255, 255, 0.1);
+    font-size: var(--font-down-1);
+  }
 }

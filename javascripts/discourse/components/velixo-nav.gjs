@@ -3,26 +3,11 @@ import { concat } from "@ember/helper";
 import { service } from "@ember/service";
 import concatClass from "discourse/helpers/concat-class";
 import icon from "discourse/helpers/d-icon";
-import getURL from "discourse/lib/get-url";
-
-const EXTERNAL_URL = /^https?:\/\//;
+import { decorateLink, isVisibleTo } from "../lib/velixo-links";
 
 export default class VelixoNav extends Component {
   @service currentUser;
   @service router;
-
-  isVisible(link) {
-    switch (link.audience) {
-      case "staff":
-        return !!this.currentUser?.staff;
-      case "logged_in":
-        return !!this.currentUser;
-      case "anonymous":
-        return !this.currentUser;
-      default:
-        return true;
-    }
-  }
 
   isActive(url, currentPath) {
     if (url === "/latest" && currentPath === "/") {
@@ -35,14 +20,12 @@ export default class VelixoNav extends Component {
     const currentPath = (this.router.currentURL || "/").split("?")[0];
 
     return (settings.nav_links || [])
-      .filter((link) => this.isVisible(link))
+      .filter((link) => isVisibleTo(link, this.currentUser))
       .map((link) => {
-        const external = EXTERNAL_URL.test(link.url);
+        const decorated = decorateLink(link);
         return {
-          ...link,
-          external,
-          href: external ? link.url : getURL(link.url),
-          active: !external && this.isActive(link.url, currentPath),
+          ...decorated,
+          active: !decorated.external && this.isActive(link.url, currentPath),
         };
       });
   }

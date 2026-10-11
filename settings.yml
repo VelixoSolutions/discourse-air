@@ -2,6 +2,10 @@ hide_sidebar:
   type: bool
   default: true
 
+sidebar_for_staff:
+  type: bool
+  default: true
+
 nav_links:
   type: objects
   default:
@@ -45,3 +49,125 @@ nav_links:
           - logged_in
           - anonymous
           - staff
+
+hero_style:
+  type: enum
+  default: navy
+  choices:
+    - gradient
+    - navy
+    - light
+
+show_banner_title:
+  type: bool
+  default: false
+
+hero_eyebrow:
+  type: string
+  default: ""
+
+hero_subtitle:
+  type: string
+  default: "Ask questions, share reports and ideas, and learn from finance teams who use Velixo every day."
+
+hero_links:
+  type: objects
+  default:
+    - label: "Ask a question"
+      url: "/new-topic?category=q-a"
+      icon: "circle-question"
+      audience: "everyone"
+    - label: "Share an idea"
+      url: "/c/ideas-feature-requests/7"
+      icon: "rocket"
+      audience: "everyone"
+    - label: "Help Center"
+      url: "https://www.velixo.com/help/"
+      icon: "life-ring"
+      audience: "everyone"
+    - label: "Velixo Academy"
+      url: "https://learning.velixo.com/"
+      icon: "graduation-cap"
+      audience: "everyone"
+  schema:
+    name: "link"
+    identifier: "label"
+    properties:
+      label:
+        type: string
+        required: true
+      url:
+        type: string
+        required: true
+      icon:
+        type: string
+      audience:
+        type: enum
+        default: everyone
+        choices:
+          - everyone
+          - logged_in
+          - anonymous
+          - staff
+
+category_box_icons:
+  type: bool
+  default: true
+
+show_footer:
+  type: bool
+  default: true
+
+footer_tagline:
+  type: string
+  default: "Live ERP data in Excel, for every finance team."
+
+footer_links:
+  type: objects
+  default:
+    - section: "Community"
+      label: "Latest topics"
+      url: "/latest"
+    - section: "Community"
+      label: "Categories"
+      url: "/categories"
+    - section: "Community"
+      label: "Guidelines"
+      url: "/guidelines"
+    - section: "Learn"
+      label: "Help Center"
+      url: "https://www.velixo.com/help/"
+    - section: "Learn"
+      label: "Velixo Academy"
+      url: "https://learning.velixo.com/"
+    - section: "Learn"
+      label: "Template library"
+      url: "https://app.velixo.com/portal/"
+    - section: "Learn"
+      label: "Videos"
+      url: "https://www.youtube.com/c/velixo"
+    - section: "Velixo"
+      label: "velixo.com"
+      url: "https://www.velixo.com/"
+    - section: "Velixo"
+      label: "Product updates"
+      url: "https://www.velixo.com/resource-center/?resource_types=product-update"
+    - section: "Velixo"
+      label: "Blog"
+      url: "https://www.velixo.com/blog/"
+    - section: "Velixo"
+      label: "Contact us"
+      url: "https://www.velixo.com/contact-us/"
+  schema:
+    name: "link"
+    identifier: "label"
+    properties:
+      section:
+        type: string
+        required: true
+      label:
+        type: string
+        required: true
+      url:
+        type: string
+        required: true
