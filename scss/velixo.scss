@@ -689,10 +689,52 @@ html.mobile-view {
     color: var(--primary);
   }
 
+  // room between the header and the first row (Latest / compose); a margin,
+  // since core forces this padding to 0 with !important
+  body #main-outlet {
+    margin-top: 1em;
+  }
+
+  // a long unbroken word (a formula, a URL) in a topic excerpt or a post
+  // must wrap instead of pushing the page wider than the screen
+  .topic-list {
+    table-layout: fixed;
+    width: 100%;
+  }
+
+  .topic-list .topic-excerpt,
+  .topic-list .link-top-line,
+  .cooked {
+    overflow-wrap: anywhere;
+  }
+
+  .cooked img,
+  .cooked .lightbox-wrapper,
+  .cooked .lightbox {
+    max-width: 100%;
+    height: auto;
+  }
+
   .welcome-banner.--location-below-site-header {
     margin-top: 0.75em;
     padding-inline: 1em;
     border-radius: var(--velixo-radius);
     background: var(--velixo-navy);
   }
+}
+
+// No card on phones, so no rounded cap over it while scrolling
+html.mobile-view .velixo-card-cap {
+  display: none !important;
+}
+
+@media screen and (width <= 700px) {
+  .velixo-card-cap {
+    display: none !important;
+  }
+}
+
+// "Powered by Discourse" pill: breathing room above it
+.powered-by-discourse {
+  margin-top: 1.5em;
 }
