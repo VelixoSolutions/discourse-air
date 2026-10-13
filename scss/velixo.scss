@@ -492,6 +492,7 @@ html body #main-outlet,
 
   h1 {
     margin-bottom: 0.4em;
+    overflow-wrap: anywhere; // one-word titles (a function name) must wrap
   }
 
   .topic-category {
@@ -704,6 +705,7 @@ html.mobile-view {
 
   .topic-list .topic-excerpt,
   .topic-list .link-top-line,
+  .fancy-title,
   .cooked {
     overflow-wrap: anywhere;
   }
